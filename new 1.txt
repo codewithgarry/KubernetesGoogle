@@ -51,7 +51,7 @@ kubectl edit deployment valkyrie-dev
 
 docker ps
 
-step 6:--------------------
+step 6:-------------------- Create a pipeline in Jenkins to deploy your app-----------------
 docker kill container_id
 
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=cd" -o jsonpath="{.items[0].metadata.name}")
