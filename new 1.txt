@@ -1,3 +1,5 @@
+Deploy to Kubernetes in Google Cloud: Challenge Lab
+
 gsutil cat gs://cloud-training/gsp318/marking/setup_marking.sh | bash
 gcloud source repos clone valkyrie-app
 cd valkyrie-app
