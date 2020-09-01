@@ -35,9 +35,8 @@ sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deplo
 
 step 4:------------------
 
+sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deployment.yaml
 gcloud container clusters get-credentials valkyrie-dev --zone us-east1-d
-
-
 kubectl create -f k8s/deployment.yaml
 kubectl create -f k8s/service.yaml
 
@@ -46,7 +45,7 @@ kubectl edit deployment valkyrie-dev
 
 step 5:---------------------
 
-docker build -t gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2 
+docker build -t gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2 . 
 docker push gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2
 kubectl edit deployment valkyrie-dev
 
@@ -54,6 +53,7 @@ docker ps
 
 step 6:--------------------
 docker kill container_id
+
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=cd" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward $POD_NAME 8080:8080 >> /dev/null &
 printf $(kubectl get secret cd-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
@@ -64,9 +64,12 @@ sed -i "s/green/orange/g" source/html.go
 
 
 # Update project in Jenkinsfile
+
 sed -i "s/YOUR_PROJECT/$GOOGLE_CLOUD_PROJECT/g" Jenkinsfile
 git config --global user.email "you@example.com"     <------ put from first consol 
 git config --global user.name "student"               <--------- from login status
-git add
+git add .
 git commit -m "built pipeline init"
 git push 
+
+in last on jenkins windows tamplate just click on built which is in nevigation manu 
