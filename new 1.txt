@@ -1,6 +1,9 @@
 Deploy to Kubernetes in Google Cloud: Challenge Lab
 
-
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
 step 1:------------
 
 gsutil cat gs://cloud-training/gsp318/marking/setup_marking.sh | bash
@@ -18,6 +21,15 @@ cd ..
 cd marking
 ./step1.sh
 
+
+
+
+
+
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
 step 2:---------------------------
 cd ..
 cd valkyrie-app
@@ -26,6 +38,13 @@ cd ..
 cd marking
 ./step2.sh  
 
+
+
+
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
 step 3:-------------------
 cd ..
 cd valkyrie-app
@@ -33,6 +52,13 @@ docker tag valkyrie-app:v0.0.1 gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1
 docker push gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1
 sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deployment.yaml
 
+
+
+
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
 step 4:------------------
 
 sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deployment.yaml
@@ -43,6 +69,13 @@ kubectl create -f k8s/service.yaml
 git merge origin/kurt-dev
 kubectl edit deployment valkyrie-dev
 
+
+
+
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
 step 5:---------------------
 
 docker build -t gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2 . 
@@ -73,3 +106,10 @@ git commit -m "built pipeline init"
 git push 
 
 in last on jenkins windows tamplate just click on built which is in nevigation manu 
+
+
+
+##############################################################################################################################
+If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
+#############################################################################################################################
+******************************************************************************************************************************
