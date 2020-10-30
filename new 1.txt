@@ -4,7 +4,7 @@ Deploy to Kubernetes in Google Cloud: Challenge Lab
 If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
 #############################################################################################################################
 ******************************************************************************************************************************
-step 1:------------
+step 1:----------- Create a Docker image and store the Dockerfile -----------------
 
 gsutil cat gs://cloud-training/gsp318/marking/setup_marking.sh | bash
 gcloud source repos clone valkyrie-app
@@ -30,7 +30,7 @@ cd marking
 If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
 #############################################################################################################################
 ******************************************************************************************************************************
-step 2:---------------------------
+step 2:----------- Test the created Docker image -----------------
 cd ..
 cd valkyrie-app
 docker run -p 8080:8080 valkyrie-app:v0.0.1 &
@@ -45,7 +45,7 @@ cd marking
 If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
 #############################################################################################################################
 ******************************************************************************************************************************
-step 3:-------------------
+step 3:----------- Push the Docker image in the Container Repository -----------------
 cd ..
 cd valkyrie-app
 docker tag valkyrie-app:v0.0.1 gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1
@@ -59,7 +59,7 @@ sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deplo
 If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
 #############################################################################################################################
 ******************************************************************************************************************************
-step 4:------------------
+step 4:------------ Create and expose a deployment in Kubernetes -----------------
 
 sed -i s#IMAGE_HERE#gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.1#g k8s/deployment.yaml
 gcloud container clusters get-credentials valkyrie-dev --zone us-east1-d
@@ -76,7 +76,7 @@ kubectl edit deployment valkyrie-dev
 If you are getting help from our channel, we request you to subscribe to Prakash Foundation, this is the only way to help us.
 #############################################################################################################################
 ******************************************************************************************************************************
-step 5:---------------------
+step 5:------------ Update the deployment with a new version of valkyrie-app -----------------
 
 docker build -t gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2 . 
 docker push gcr.io/$GOOGLE_CLOUD_PROJECT/valkyrie-app:v0.0.2
@@ -84,7 +84,7 @@ kubectl edit deployment valkyrie-dev
 
 docker ps
 
-step 6:-------------------- Create a pipeline in Jenkins to deploy your app-----------------
+step 6:-------------------- Create a pipeline in Jenkins to deploy your app -----------------
 docker kill container_id
 
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=cd" -o jsonpath="{.items[0].metadata.name}")
